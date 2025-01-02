@@ -1,0 +1,4 @@
+apiVersion: v2
+name: generic
+type: application
+version: 0.0.1-devel

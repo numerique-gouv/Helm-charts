@@ -1,0 +1,49 @@
+components:
+  - name: languagetool
+    command:
+      - bash
+    args:
+      - bash
+      - scripts/start.sh
+    env:
+      - name: toto
+        value: tutu
+    replicas: 3
+    securityContext:
+      runAsUser: 1000
+      fsGroup: 1000
+    sidecars:
+      - name: goofys
+        image: goofys
+    initContainers:
+      - name: ubuntu
+        image: ubuntu
+    strategy:
+      type: Recreate
+    volumes:
+      - name: config-vol
+        configMap:
+          name: log-config
+          items:
+            - key: log_level
+              path: log_leve
+    volumeMounts:
+      - name: config-vol
+        mountPath: /etc/config
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+    ports:
+      - port: 8010
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: demo
+          host: toto.exemple.com
+          tls: true
+    image:
+      repository: erikvl87/languagetool
+      tag: latest
+      pullPolicy: IfNotPresent
