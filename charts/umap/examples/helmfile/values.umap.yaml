@@ -1,0 +1,11 @@
+ingress:
+  enabled: true
+  hosts:
+    - host: umap.127.0.0.1.nip.io
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: umap-tls
+      hosts:
+        - umap.127.0.0.1.nip.io
